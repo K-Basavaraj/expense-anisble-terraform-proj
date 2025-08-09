@@ -1,7 +1,7 @@
 - name: configure mysql 
   hosts: mysql 
-  become: yes 
+  become: yes #this is for remote_server
   vars_files: 
-   - /var/expense/creds_mysql.yaml
+   - /var/expense/creds_mysql.yaml #this is at anisble_server
   roles:
     - mysql_roles
