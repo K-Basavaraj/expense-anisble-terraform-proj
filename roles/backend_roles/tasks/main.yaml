@@ -20,11 +20,15 @@
     name: expense
 
 - name: import task from common role #this will use common folder 
+  tags:
+  - deployment 
   ansible.builtin.import_role: 
     name: common
     tasks_from: app-pre-req
 
 - name: install the dependencies
+  tags:
+  - deployment 
   ansible.builtin.command: npm install
   args:
     chdir: "{{ app_location }}" #somedir/#Change the working directory to somedir/ and run the command as db_owner if /path/to/database does not exist
@@ -34,3 +38,12 @@
 
 - name: Import task to load MySQL data
   import_tasks: import_mysql_data.yaml  #from file which is task we can plase this task here but for to know like this also we can use imort
+
+# Runs only in deployment run
+- name: Daemon reload and start
+  ansible.builtin.systemd:
+    name: backend
+    state: restarted
+    daemon_reload: yes
+  tags:
+    - deployment
