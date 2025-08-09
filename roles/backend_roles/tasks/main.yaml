@@ -38,3 +38,24 @@
 
 - name: Import task to load MySQL data
   import_tasks: import_mysql_data.yaml  #from file which is task we can plase this task here but for to know like this also we can use imort
+
+# NOTE:
+# When running the backend playbook normally (without --tags),
+# the following task is NOT needed — the service restart will be handled 
+# automatically via the notify: Daemon reload and start in service_file.yaml.
+#
+# However, if you are running the playbook with --tags deployment, and you 
+# still need to restart the backend service without touching the service file,
+# you can uncomment the task below so it runs directly.
+#
+# If you prefer, you can also add the "deployment" tag to the 
+# "Import backend service task" above so both tasks run together and xou can comment below.
+
+# - name: Daemon reload and start
+#   tags:
+#     - deployment
+#   ansible.builtin.systemd_service:
+#     state: restarted
+#     daemon_reload: true
+#     name: "{{ component }}" # backend
+#     enabled: true
