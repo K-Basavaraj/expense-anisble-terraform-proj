@@ -1,0 +1,4 @@
+# roles/backend_roles/meta/main.yaml
+---
+dependencies:
+  - role: common

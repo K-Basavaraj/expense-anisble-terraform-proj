@@ -1,0 +1,8 @@
+- name: import the mysql data
+  community.mysql.mysql_db:
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+    login_host: "{{ login_host }}"
+    name: all
+    state: import
+    target: "/{{ app_location }}/schema/backend.sql"

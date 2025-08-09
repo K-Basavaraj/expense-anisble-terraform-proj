@@ -1,0 +1,18 @@
+#This common folder for both backend and frontend task perform like remove create  dir and dowload code operation for idempotency DRY run
+
+- name: remove existing app location 
+  ansible.builtin.file:
+    path: "{{ app_location }}"
+    state: absent
+  ignore_errors: true #when 1st time you run, we cant delete the /app folder which is not exist at 1st run so we need to handle the error.. 
+  
+- name: Create a app folder
+  ansible.builtin.file:
+    path: "{{ app_location }}"
+    state: directory
+
+- name: "Download {{ component }} code with custom HTTPS headers and extract"
+  ansible.builtin.unarchive:
+    src: "https://expense-builds.s3.us-east-1.amazonaws.com/expense-{{ component }}-v2.zip" #this unarchive folder will directly download and unzip the code in destination folder 
+    dest: "{{ app_location }}"
+    remote_src: yes

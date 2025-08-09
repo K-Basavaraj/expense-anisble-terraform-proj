@@ -1,0 +1,5 @@
+- name: copy frontend conf file
+  ansible.builtin.template:
+    src: "{{ nginx_conf_src }}"  # check vars/main.yaml file  for value
+    dest: "{{ nginx_conf_dest }}" # check vars/main.yaml file for value
+  notify: Restart nginx  # This notify will trigger the 'restart nginx' handler **only if this task changes** (e.g., config or service file is updated). The handler must be defined in handlers/main.yaml.

@@ -1,0 +1,36 @@
+- name: ansible to install python reqierd lib for import from backend to mysql
+  ansible.builtin.pip:
+    name: "{{ python_libraries }}" # Use list of libraries from vars
+    executable: "{{ pip_version }}"
+
+- name: disable defult nodejs
+  ansible.builtin.command: dnf module disable nodejs -y
+
+- name: enable nodejs 20
+  ansible.builtin.command: dnf module enable nodejs:20 -y
+
+- name: install nodejs
+  ansible.builtin.package:
+      name: "{{ item.name }}"
+      state: "{{ item.state }}"
+  loop: "{{ packages_to_install }}"
+       
+- name: add expense user
+  ansible.builtin.user:
+    name: expense
+
+- name: import task from common role #this will use common folder 
+  ansible.builtin.import_role: 
+    name: common
+    tasks_from: app-pre-req
+
+- name: install the dependencies
+  ansible.builtin.command: npm install
+  args:
+    chdir: "{{ app_location }}" #somedir/#Change the working directory to somedir/ and run the command as db_owner if /path/to/database does not exist
+
+- name: Import backend service task
+  import_tasks: service_file.yaml    #this is also a task but for usage practice i create separte file for this task called service_file.yaml      
+
+- name: Import task to load MySQL data
+  import_tasks: import_mysql_data.yaml  #from file which is task we can plase this task here but for to know like this also we can use imort

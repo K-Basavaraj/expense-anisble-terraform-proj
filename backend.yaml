@@ -1,0 +1,7 @@
+- name: configure backend 
+  hosts: backend 
+  become: yes 
+  tags:
+    - backend
+  roles:
+    - backend_roles

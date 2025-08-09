@@ -1,0 +1,24 @@
+#backend usage varibles in the tasks
+app_location: /app
+component: backend
+
+# 1st task Python packages to install and its version to use 
+pip_version: pip3.9
+python_libraries:
+ - PyMySQL
+ - cryptography
+
+# 4th task install required packages for backend 
+packages_to_install:
+    - { name: "nodejs", state: "present" }
+    - { name: "npm", state: "present" }
+    - { name: "mysql", state: "present" }
+
+
+# Backend application code configuration
+Backend_app_service_src: backend.service.j2
+Backend_app_service_dest: /etc/systemd/system/backend.service
+
+# for import schema from backend need mysql creds
+mysql_root_password: ExpenseApp@1
+login_host: mysql-dev.basavadevops81s.online

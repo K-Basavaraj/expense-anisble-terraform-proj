@@ -1,0 +1,14 @@
+#frontend usage varibles in the tasks
+app_location: /usr/share/nginx/html
+component: frontend
+
+#1st and 2nd task nginx variables
+web_server_package: nginx
+web_service_name: nginx
+
+#4th task varibles Nginx configuration
+nginx_conf_src: expense.conf.j2
+nginx_conf_dest: /etc/nginx/default.d/expense.conf
+
+#for the above configuration varible for redirct 
+BACKEND_HOST: backend.basavadevops81s.online
