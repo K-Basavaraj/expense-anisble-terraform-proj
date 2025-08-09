@@ -38,12 +38,3 @@
 
 - name: Import task to load MySQL data
   import_tasks: import_mysql_data.yaml  #from file which is task we can plase this task here but for to know like this also we can use imort
-
-# Runs only in deployment run
-- name: Daemon reload and start
-  ansible.builtin.systemd:
-    name: backend
-    state: restarted
-    daemon_reload: yes
-  tags:
-    - deployment
