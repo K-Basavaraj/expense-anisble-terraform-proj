@@ -1,0 +1,4 @@
+# roles/frontend/meta/main.yaml
+---
+dependencies:
+  - role: common
