@@ -11,4 +11,4 @@ nginx_conf_src: expense.conf.j2
 nginx_conf_dest: /etc/nginx/default.d/expense.conf
 
 #for the above configuration varible for redirct 
-BACKEND_HOST: backend.basavadevops81s.online
+BACKEND_HOST: backend.app-dev.basavadevops81s.online
